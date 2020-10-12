@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>AWS.Samples.Amazon.Personalize.Demo</RootNamespace>
+    <AssemblyName>AWS.Samples.Amazon.Personalize.Demo</AssemblyName>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Extensions.Configuration.SystemsManager" Version="1.2.0" />
+    <PackageReference Include="AWSXRayRecorder.Core" Version="2.9.0" />
+    <PackageReference Include="AWSXRayRecorder.Handlers.AspNetCore" Version="2.7.1" />
+    <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk" Version="2.8.1" />
+    
+    <PackageReference Include="AWSSDK.Core" Version="3.5.1.23" />
+    <PackageReference Include="AWSSDK.S3" Version="3.5.3.1" />
+    <PackageReference Include="AWS.Logger.Core" Version="1.6.0" />
+    <PackageReference Include="AWSSDK.Personalize" Version="3.5.0.25" />
+    <PackageReference Include="AWSSDK.PersonalizeRuntime" Version="3.5.0.25" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="AWSSDK.PersonalizeEvents" Version="3.5.1.1" />
+    <PackageReference Include="AWS.Logger.AspNetCore" Version="2.2.0" />
+  </ItemGroup>
+</Project>

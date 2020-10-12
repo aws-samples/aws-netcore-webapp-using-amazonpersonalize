@@ -1,0 +1,182 @@
+﻿@using AWS.Samples.Amazon.Personalize.Demo.Support
+@model AWS.Samples.Amazon.Personalize.Demo.Models.PersonalizeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+
+    var randomUserIdGenerator = new RandomUserIdGenerator();
+
+    var userId = randomUserIdGenerator.GetUser();
+}
+
+    <div class="row" style="background-color: black">
+        <h1 style="color:ivory">Movie Recommendations Engine based on MovieLens Dataset and Amazon Personalize</h1>
+        <br/><br /><br />
+    </div>
+<div class="row"><br /></div>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="table-responsive">
+            <table class="table table-borderless table-dark">
+                <thead>
+                <tr class="bg-primary">
+                    <th>User Information</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <p><b>Current User Id: @Model.User.User_Id </b></p>
+                        <p><a href="@Url.Action("Index", "Home", new {userId})" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Select Random User</a></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+    <div class="table-responsive">
+        <table class="table table-borderless table-dark">
+            <thead>
+                <tr class="bg-primary">
+                    <th colspan="15">Movies Rated by You</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @{
+                        foreach (var item in Model.MoviesRatedByUser.Movies)
+                        {
+                            <td>
+                                <a href="~/home/similar/?movieId=@item.Id&userId=@Model.User.User_Id">
+                                    <img src="@item.PosterUrl" width="182" height="268">
+                                </a>
+                                <p>
+                                    Rating: @item.GetRating()
+                                    <br />Year: @item.Year
+                                </p>
+                                <p><b>@item.Title</b></p>
+                                <p><i>@item.Genre</i></p>
+                            </td>
+                        }
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless table-dark">
+            <thead>
+                <tr class="bg-primary">
+                    <th colspan="15">MOST POPULAR MOVIES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @{
+                        foreach (var item in Model.MostPopularItems.Movies)
+                        {
+                            <td>
+                                <a href="~/home/similar/?movieId=@item.Id&userId=@Model.User.User_Id">
+                                    <img src="@item.PosterUrl" width="182" height="268">
+                                </a>
+                                <p>
+                                    Rating: @item.GetRating()
+                                    <br />Year: @item.Year
+                                </p>
+                                <p><b>@item.Title</b></p>
+                                <p><i>@item.Genre</i></p>
+                            </td>
+                        }
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless table-dark">
+            <thead>
+            <tr class="bg-primary">
+                <th colspan="15">PERSONALIZATION: PERSONAL RECOMMENDATIONS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @{
+                    foreach (var item in Model.RecommendedItems.Movies)
+                    {
+                        <td>
+                            <a href="~/home/similar/?movieId=@item.Id&userId=@Model.User.User_Id">
+                                <img src="@item.PosterUrl" width="182" height="268">
+                            </a>
+                            <p>
+                                Rating: @item.GetRating()
+                                <br />Year: @item.Year
+                            </p>
+                            <p><b>@item.Title</b></p>
+                            <p><i>@item.Genre</i></p>
+                        </td>
+                    }
+                }
+            </tr>
+            </tbody>
+        </table>
+        
+        <table class="table table-borderless table-dark">
+            <thead>
+            <tr class="bg-primary">
+                <th colspan="15">RANKINGS: PERSONAL RANKING FOR THE ABOVE RECOMMENDATIONS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @{
+                    foreach (var item in Model.PersonalizedRankingResultsForRecommendations.Movies)
+                    {
+                        <td>
+                            <a href="~/home/similar/?movieId=@item.Id&userId=@Model.User.User_Id">
+                                <img src="@item.PosterUrl" width="182" height="268">
+                            </a>
+                            <p>
+                                Rating: @item.GetRating()
+                                <br />Year: @item.Year
+                            </p>
+                            <p><b>@item.Title</b></p>
+                            <p><i>@item.Genre</i></p>
+                        </td>
+                    }
+                }
+            </tr>
+            </tbody>
+        </table>
+        
+        <table class="table table-borderless table-dark">
+            <thead>
+            <tr class="bg-primary">
+                <th colspan="15">RANKINGS: PERSONAL RANKING FOR MOST POPULAR MOVIES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @{
+                    foreach (var item in Model.PersonalizedRankingResults.Movies)
+                    {
+                                <td>
+                                    <a href="~/home/similar/?movieId=@item.Id&userId=@Model.User.User_Id">
+                                        <img src="@item.PosterUrl" width="182" height="268">
+                                    </a>
+                                    <p>
+                                        Rating: @item.GetRating()
+                                        <br />Year: @item.Year
+                                    </p>
+                                    <p><b>@item.Title</b></p>
+                                    <p><i>@item.Genre</i></p>
+                                </td>
+                    }
+                }
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿@using AWS.Samples.Amazon.Personalize.Demo.Support
+@model AWS.Samples.Amazon.Personalize.Demo.Models.SimilarViewPageModel
+
+@{
+    ViewBag.Title = "Similar Movies Page";
+
+    var randomUserIdGenerator = new RandomUserIdGenerator();
+
+    var userId = randomUserIdGenerator.GetUser();
+}
+
+<div class="row" style="background-color: black">
+    <h1 style="color:ivory">Movie Recommendations Engine based on MovieLens Dataset and Amazon Personalize</h1>
+    <br/><br /><br />
+</div>
+<div class="row"><br /></div>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="table-responsive">
+            <table class="table table-borderless table-dark">
+                <thead>
+                <tr class="bg-primary">
+                    <th>User Information</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <p><b>Current User Id: @Model.SimilarItemViewModel.UserId </b></p>
+                        <p><a href="@Url.Action("Index", "Home", new {userId})" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Home</a></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table-responsive">
+
+        <table class="table table-borderless table-dark">
+            <thead>
+                <tr class="bg-primary">
+                    <th>SIMILAR ITEMS: SELECTED MOVIE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="@Model.SimilarItemViewModel.Movie.PosterUrl" width="182" height="268">
+                        <p>
+                            Rating: @Model.SimilarItemViewModel.Movie.GetRating()
+                            <br />Year: @Model.SimilarItemViewModel.Movie.Year
+                        </p>
+                        <p><b>@Model.SimilarItemViewModel.Movie.Title</b></p>
+                        <p><i>@Model.SimilarItemViewModel.Movie.Genre</i></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-borderless table-dark">
+            <thead>
+                <tr class="bg-primary">
+                    <th colspan="15">SIMILAR ITEMS: SIMILAR MOVIES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @{
+                        foreach (var item in Model.SimilarItemViewModel.SimilarItems.Movies)
+                        {
+                            <td>
+                                <a href="~/home/similar/?movieId=@item.Id&userId=@Model.SimilarItemViewModel.UserId">
+                                    <img src="@item.PosterUrl" width="182" height="268">
+                                </a>
+                                <p>
+                                    Rating: @item.GetRating()
+                                    <br />Year: @item.Year
+                                </p>
+                                <p><b>@item.Title</b></p>
+                                <p><i>@item.Genre</i></p>
+                            </td>
+                        }
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
